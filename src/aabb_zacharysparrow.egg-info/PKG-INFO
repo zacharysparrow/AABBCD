@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: aabb-zacharysparrow
+Version: 0.0.2
+Summary: A package for finding axis-aligned bounding boxes for continuous distributions
+Author-email: Zachary Sparrow <zacharysparrow@cornell.edu>
+Project-URL: Homepage, https://github.com/zacharysparrow/AABBCD
+Project-URL: Issues, https://github.com/zacharysparrow/AABBCD/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# AABBCD
+Axis Aligned Bounding Box for Continuous Distributions

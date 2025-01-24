@@ -1,0 +1,18 @@
+[project]
+name = "aabb_zacharysparrow"
+version = "0.0.2"
+authors = [
+  { name="Zachary Sparrow", email="zacharysparrow@cornell.edu" },
+]
+description = "A package for finding axis-aligned bounding boxes for continuous distributions"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = {file = "LICENSE.md"}
+
+[project.urls]
+Homepage = "https://github.com/zacharysparrow/AABBCD"
+Issues = "https://github.com/zacharysparrow/AABBCD/issues"
