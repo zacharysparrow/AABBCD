@@ -35,8 +35,10 @@ If <tt>`my_distribution`</tt> is *not* normalized, the program will proceed anyw
 
 The output of <tt>`draw_aabb()`</tt> is a dictionary containing the following items: <tt>`"bounds"`</tt>, <tt>`"norm"`</tt>, and <tt>`"distribution"`</tt>, which contain the indices of the input array corresponding to the axis-aligned bounding box bounds, the norm of the truncated distribution, and the truncated distribution itself, respectively. The truncated distribution is related to the input distribution *via* the bounds as
 ```
-trancated_distribution = input_distribution[tuple(slice(b[0],b[1],1) for b in bounds)]
+trancated_distribution = input_distribution[tuple(slice(b[0],b[1],1) for b in bounds)].
 ```
+
+For more details, please see the given tests, which also serve as useful examples.
 
 ## Reference
 If you use this package for your work, please cite the following reference:
