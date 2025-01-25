@@ -1,0 +1,57 @@
+import numpy as np
+
+def draw_aabb(dist: np.ndarray, eps: float):
+
+    if not isinstance(dist, np.ndarray):
+        raise Exception("Input distribution is not a NumPy array")
+    dist_norm = np.sum(dist)
+    if dist_norm != 1.0:
+        raise Exception("Input distribution is not normalized")
+    if not isinstance(eps, float):
+        raise Exception("Input epsilon is not a float")
+    if eps < 0.0 or eps > 1.0:
+        raise Exception("Epsilon must be between 0 and 1")
+
+    dim = dist.ndim
+    marginal_eps = eps / dim
+
+    marginal_dists = [marginalize(dist, i) for i in range(dim)]
+    bounds = [marginal_bound(d, marginal_eps) for d in marginal_dists]
+
+    truncated_dist = trunc_dist(dist, bounds)
+    truncated_norm = np.sum(truncated_dist)
+    if truncated_norm < 1.0 - eps:
+        print("WARNING! Something went wrong -- the norm of the truncated distribution is less than 1.0 - epsilon!")
+
+    result = dict()
+    result["bounds"] = bounds
+    result["norm"] = truncated_norm
+    result["distribution"] = truncated_dist
+
+    return result
+
+
+def marginalize(dist, axis):
+    axes = tuple(x for x in range(dist.ndim) if x != axis)
+    marginal = np.sum(dist, axis = axes)
+    return marginal
+
+
+def marginal_bound(dist, eps):
+    ordering = np.argsort(dist)[::-1]
+    norm = 0
+    lb = max(ordering)
+    rb = min(ordering)
+    i = 0
+    while norm < 1.0 - eps:
+        norm += dist[ordering[i]]
+        lb = min(ordering[i], lb)
+        rb = max(ordering[i], rb)
+        i += 1
+    return [lb,rb + 1]
+
+
+def trunc_dist(dist, bounds):
+    index = tuple(slice(b[0],b[1],1) for b in bounds)
+    truncated_dist = dist[index]
+    return truncated_dist
