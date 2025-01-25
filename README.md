@@ -14,12 +14,13 @@ which was originally designed for computing the support of localized orbitals in
 The basic idea is to compress an $n$-D distribution into $n$ 1-D marginal distributions $f_{i}(x_{i}) = \int f(\mathbf{x}) d \mathbf{x_{j \neq i}}$. The bounds of $f_i(x_i)$ are computed using a simple algorithm that iteratively expands the marginal bounding box $\Omega_i$ to include grid points with the largest marginal density until $\int_{\Omega_i} f_{i}(x_{i}) d x_{i} > 1- (\epsilon/n)$. Then, the final $\Omega = \cap_i^n \Omega_i$ is constructed.
 
 ## Installation
-The AABBCD package requires numpy, as the input distributions are assumed to be numpy arrays. 
+The AABBCD package requires numpy and python version >3.7. 
 
 AABBCD is available on pypi *via* pip
 ```
 pip install -i https://test.pypi.org/simple/ aabb-zacharysparrow
 ```
+To test your installation... **COMING SOON**
 
 ## Instructions for Use
 Once the package has been installed, using it is as simple as
@@ -35,5 +36,11 @@ The output of <tt>`draw_aabb()`</tt> is a dictionary containing the following it
 trancated_distribution = input_distribution[tuple(slice(b[0],b[1],1) for b in bounds)]
 ```
 
+## Reference
+If you use this package for your work, please cite the following reference:
+**COMING SOON**
 
-
+## TODO
+- Add tests
+- Upload to pypi
+- Add reference
