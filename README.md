@@ -29,7 +29,7 @@ from aabb-zacharysparrow import draw_aabb
 
 draw_aabb(my_distribution, my_epsilon)
 ```
-<tt>`my_distribution`</tt> must be an $n$-D numpy array, with entries equal to the distribution times the grid volume element -- $f(\mathbf{x})\Delta \mathbf{x}$.
+<tt>`my_distribution`</tt> must be an $n$-D numpy array, with entries equal to the distribution times the grid volume element -- <tt>`my_distribution[i,j,...]`</tt> $= f(\mathbf{x_{i,j,...}})\Delta \mathbf{x_{i,j,...}}$.
 
 If <tt>`my_distribution`</tt> is *not* normalized, the program will proceed anyway using $(1- \epsilon)* \left| f(\mathbf{x}) \right|$ as the bound. This is equivalent to ensuring $(1 - \epsilon)$\% of $f(\mathbf{x})$ is within $\Omega$ as described above.
 
