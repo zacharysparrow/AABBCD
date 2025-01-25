@@ -5,7 +5,7 @@ sys.path.append("../src/aabb_zacharysparrow")
 from aabb import draw_aabb
 import numpy as np
 
-test_input = np.array([0.0,0.0,0.01,0.02,0.04,0.08,0.16,0.38,0.16,0.08,0.04,0.02,0.01,0.0,0.0,0.0,0.0])
+test_input = 2.0*np.array([0.0,0.0,0.01,0.02,0.04,0.08,0.16,0.38,0.16,0.08,0.04,0.02,0.01,0.0,0.0,0.0,0.0])
 my_aabb = draw_aabb(test_input, 0.2)
 print(my_aabb)
 

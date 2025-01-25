@@ -1,4 +1,5 @@
 import numpy as np
+import warnings
 
 def draw_aabb(dist: np.ndarray, eps: float):
 
@@ -6,7 +7,8 @@ def draw_aabb(dist: np.ndarray, eps: float):
         raise Exception("Input distribution is not a NumPy array")
     dist_norm = np.sum(dist)
     if dist_norm != 1.0:
-        raise Exception("Input distribution is not normalized")
+        warnings.warn("Warning! The input distribution is not well normalized. Proceeding anyway.")
+        dist = dist/dist_norm
     if not isinstance(eps, float):
         raise Exception("Input epsilon is not a float")
     if eps < 0.0 or eps > 1.0:
@@ -25,8 +27,8 @@ def draw_aabb(dist: np.ndarray, eps: float):
 
     result = dict()
     result["bounds"] = bounds
-    result["norm"] = truncated_norm
-    result["distribution"] = truncated_dist
+    result["norm"] = truncated_norm*dist_norm
+    result["distribution"] = truncated_dist*dist_norm
 
     return result
 
