@@ -31,8 +31,8 @@ def draw_aabb(dist: np.ndarray, eps: float):
 
     result = dict()
     result["bounds"] = bounds
-    result["norm"] = truncated_norm*dist_norm
-    result["distribution"] = truncated_dist*dist_norm
+    result["norm"] = (truncated_norm*dist_norm).item()
+    result["distribution"] = (truncated_dist*dist_norm)
 
     return result
 
@@ -44,8 +44,9 @@ def marginalize(dist, axis):
 
 
 def marginal_bound(dist, eps):
-    cost_list = list(range(len(dist)))
-    cost_list = [min(x, y) for x, y in zip(cost_list, list(reversed(cost_list)))] # add middle first
+    pos_list = list(range(len(dist)))
+    center = sum([d*pos for d, pos in zip(dist, pos_list)])
+    cost_list = [len(dist) - np.abs(c - center) for c in pos_list]
     dist_to_sort = np.array(list(zip(dist, cost_list)), dtype=[('dist', '<f8'),('cost', '<i8')])
     ordering = np.argsort(dist_to_sort, order=['dist','cost'], stable=True)[::-1]
     norm = 0
