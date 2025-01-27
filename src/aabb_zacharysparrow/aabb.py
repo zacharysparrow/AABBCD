@@ -4,15 +4,19 @@ import warnings
 def draw_aabb(dist: np.ndarray, eps: float):
 
     if not isinstance(dist, np.ndarray):
-        raise Exception("Input distribution is not a NumPy array")
+        raise Exception("Input distribution is not a NumPy array.")
     dist_norm = np.sum(dist)
     if dist_norm != 1.0:
         warnings.warn("Warning! The input distribution is not well normalized. Proceeding anyway.")
         dist = dist/dist_norm
+    if dist_norm == 0.0:
+        raise Exception("Norm of input distribution is zero.")
+    if np.any(dist < 0):
+        raise Exception("The distribution array contains negative numbers.")
     if not isinstance(eps, float):
-        raise Exception("Input epsilon is not a float")
+        raise Exception("Input epsilon is not a float.")
     if eps < 0.0 or eps > 1.0:
-        raise Exception("Epsilon must be between 0 and 1")
+        raise Exception("Epsilon must be between 0 and 1.")
 
     dim = dist.ndim
     marginal_eps = eps / dim
@@ -40,7 +44,10 @@ def marginalize(dist, axis):
 
 
 def marginal_bound(dist, eps):
-    ordering = np.argsort(dist)[::-1]
+    cost_list = list(range(len(dist)))
+    cost_list = [min(x, y) for x, y in zip(cost_list, list(reversed(cost_list)))] # add middle first
+    dist_to_sort = np.array(list(zip(dist, cost_list)), dtype=[('dist', '<f8'),('cost', '<i8')])
+    ordering = np.argsort(dist_to_sort, order=['dist','cost'], stable=True)[::-1]
     norm = 0
     lb = max(ordering)
     rb = min(ordering)
@@ -50,10 +57,11 @@ def marginal_bound(dist, eps):
         lb = min(ordering[i], lb)
         rb = max(ordering[i], rb)
         i += 1
-    return [lb,rb + 1]
+    return [lb.item(),(rb + 1).item()]
 
 
 def trunc_dist(dist, bounds):
     index = tuple(slice(b[0],b[1],1) for b in bounds)
     truncated_dist = dist[index]
     return truncated_dist
+
