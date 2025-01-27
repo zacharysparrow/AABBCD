@@ -1,9 +1,0 @@
-LICENSE
-README.md
-pyproject.toml
-src/aabb_zacharysparrow/__init__.py
-src/aabb_zacharysparrow/example.py
-src/aabb_zacharysparrow.egg-info/PKG-INFO
-src/aabb_zacharysparrow.egg-info/SOURCES.txt
-src/aabb_zacharysparrow.egg-info/dependency_links.txt
-src/aabb_zacharysparrow.egg-info/top_level.txt

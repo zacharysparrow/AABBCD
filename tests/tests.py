@@ -1,6 +1,5 @@
 import sys
-#sys.path.append("/home/sparrow/Documents/data_projects/AABBCD/src/aabb_zacharysparrow")
-sys.path.append("../src/aabb_zacharysparrow")
+sys.path.append("../src/aabbcd")
 
 from aabb import draw_aabb
 import numpy as np
@@ -16,7 +15,7 @@ print("Input epsilon:")
 print(epsilon)
 my_aabb = draw_aabb(test_input, epsilon)
 print([my_aabb[key] for key in ["bounds","norm","distribution"]])
-
+assert(my_aabb["bounds"] == [[5, 10]]), "Failed test 1"
 print("")
 
 print("Test case 2")
@@ -28,6 +27,7 @@ print("Input epsilon:")
 print(epsilon)
 my_aabb = draw_aabb(test_input, epsilon)
 print([my_aabb[key] for key in ["bounds","norm","distribution"]])
+assert(my_aabb["bounds"] == [[1, 5],[1, 5]]), "Failed test 2"
 print("")
 
 print("Test case 3")
@@ -39,6 +39,7 @@ print("Input epsilon:")
 print(epsilon)
 my_aabb = draw_aabb(test_input, epsilon)
 print([my_aabb[key] for key in ["bounds","norm","distribution"]])
+assert(my_aabb["bounds"] == [[6, 7]]), "Failed test 3"
 print("")
 
 print("Test case 4")
@@ -57,6 +58,7 @@ print("Input epsilon:")
 print(epsilon)
 my_aabb = draw_aabb(test_input, epsilon)
 print([my_aabb[key] for key in ["bounds","norm"]])
+assert(my_aabb["bounds"] == [[87, 113],[87, 113]]), "Failed test 4"
 print("")
 
 print("Test case 5")
@@ -75,6 +77,7 @@ print("Input epsilon:")
 print(epsilon)
 my_aabb = draw_aabb(test_input, epsilon)
 print([my_aabb[key] for key in ["bounds","norm"]])
+assert(my_aabb["bounds"] == [[8, 15], [9, 16], [8, 15], [7, 14], [8, 15]]), "Failed test 5"
 print("")
 
 print("Test case 6")
@@ -86,4 +89,18 @@ print("Input epsilon:")
 print(epsilon)
 my_aabb = draw_aabb(test_input, epsilon)
 print([my_aabb[key] for key in ["bounds","norm","distribution"]])
+assert(my_aabb["bounds"] == [[11, 18]]), "Failed test 6"
 print("")
+
+print("Test case 7")
+epsilon = 0.1
+test_input = np.array([1.0])
+print("Input norm:")
+print(np.sum(test_input))
+print("Input epsilon:")
+print(epsilon)
+my_aabb = draw_aabb(test_input, epsilon)
+print([my_aabb[key] for key in ["bounds","norm","distribution"]])
+assert(my_aabb["bounds"] == [[0, 1]]), "Failed test 7"
+print("")
+

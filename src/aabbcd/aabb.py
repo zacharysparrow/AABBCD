@@ -33,7 +33,6 @@ def draw_aabb(dist: np.ndarray, eps: float):
     result["bounds"] = bounds
     result["norm"] = (truncated_norm*dist_norm).item()
     result["distribution"] = (truncated_dist*dist_norm)
-
     return result
 
 
