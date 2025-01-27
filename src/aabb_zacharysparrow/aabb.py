@@ -49,6 +49,7 @@ def marginal_bound(dist, eps):
     cost_list = [len(dist) - np.abs(c - center) for c in pos_list]
     dist_to_sort = np.array(list(zip(dist, cost_list)), dtype=[('dist', '<f8'),('cost', '<i8')])
     ordering = np.argsort(dist_to_sort, order=['dist','cost'], stable=True)[::-1]
+
     norm = 0
     lb = max(ordering)
     rb = min(ordering)
