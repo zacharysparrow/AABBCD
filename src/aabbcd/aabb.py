@@ -4,19 +4,21 @@ import warnings
 def draw_aabb(dist: np.ndarray, eps: float):
 
     if not isinstance(dist, np.ndarray):
-        raise Exception("Input distribution is not a NumPy array.")
+        raise TypeError("Input distribution is not a NumPy array.")
     dist_norm = np.sum(dist)
+    if dist_norm == 0.0:
+        raise ZeroDivisionError("Norm of input distribution is zero.")
+    if np.any(dist < 0):
+        raise ValueError("The input distribution contains negative numbers.")
     if dist_norm != 1.0:
         warnings.warn("Warning! The input distribution is not well normalized. Proceeding anyway.")
         dist = dist/dist_norm
-    if dist_norm == 0.0:
-        raise Exception("Norm of input distribution is zero.")
-    if np.any(dist < 0):
-        raise Exception("The distribution array contains negative numbers.")
     if not isinstance(eps, float):
-        raise Exception("Input epsilon is not a float.")
+        raise TypeError("Input epsilon is not a float.")
     if eps < 0.0 or eps > 1.0:
-        raise Exception("Epsilon must be between 0 and 1.")
+        raise ValueError("Epsilon must be between 0 and 1.")
+    if eps == 1.0:
+        return {"bounds":[[]], "norm":0.0, "distribution":np.array([])}
 
     dim = dist.ndim
     marginal_eps = eps / dim
