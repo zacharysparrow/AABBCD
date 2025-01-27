@@ -47,3 +47,4 @@ If you use this package for your work, please cite the following reference:\
 ## TODO
 - Upload to pypi
 - Add reference
+- Make sure tests use pypi package 
