@@ -1,7 +1,7 @@
 import numpy as np
 import warnings
 
-def draw_aabb(dist: np.ndarray, eps: float):
+def draw_aabb(dist: np.ndarray, eps: float, verbose=False):
 
     if not isinstance(dist, np.ndarray):
         raise TypeError("Input distribution is not a NumPy array.")
@@ -18,7 +18,12 @@ def draw_aabb(dist: np.ndarray, eps: float):
     if eps < 0.0 or eps > 1.0:
         raise ValueError("Epsilon must be between 0 and 1.")
     if eps == 1.0:
-        return {"bounds":[[]], "norm":0.0, "distribution":np.array([])}
+        if verbose:
+            return {"bounds":[[]], "norm":0.0, "distribution":np.array([])}
+        else:
+            return [[]]
+    if not isinstance(verbose, bool):
+        raise ValueError("Verbose option must be a boolean")
 
     dim = dist.ndim
     marginal_eps = eps / dim
@@ -31,10 +36,13 @@ def draw_aabb(dist: np.ndarray, eps: float):
     if truncated_norm < 1.0 - eps:
         print("WARNING! Something went wrong -- the norm of the truncated distribution is less than 1.0 - epsilon!")
 
-    result = dict()
-    result["bounds"] = bounds
-    result["norm"] = (truncated_norm*dist_norm).item()
-    result["distribution"] = (truncated_dist*dist_norm)
+    if verbose:
+        result = dict()
+        result["bounds"] = bounds
+        result["norm"] = (truncated_norm*dist_norm).item()
+        result["distribution"] = (truncated_dist*dist_norm)
+    else:
+        result = bounds
     return result
 
 
