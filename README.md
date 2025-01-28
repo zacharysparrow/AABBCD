@@ -2,7 +2,7 @@
 <ins>A</ins>xis <ins>A</ins>ligned <ins>B</ins>ounding <ins>B</ins>ox for <ins>C</ins>ompact <ins>D</ins>istributions
 
 ## Description
-This is a small package for computing the (approximate) domain of a numerical distribution with arbitrary dimensionality. The goal is to return the smallest non-disjoint axis-aligned bounding box $\Omega$ such that\
+This is a small python package for computing the (approximate) domain of a numerical distribution with arbitrary dimensionality. The goal is to return the smallest non-disjoint axis-aligned bounding box $\Omega$ such that\
 $$\int_\Omega f(\mathbf{x}) d\mathbf{x} > 1 - \epsilon$$,\
 where $f(\mathbf{x})$ is the distribution to be bounded, defined in any (possibly non-orthogonal) coordinate system, and assumed here to be normalized without loss of generalization (if $f(\mathbf{x})$ is *not* normalized, we bound $(1 - \epsilon)$\% of $f(\mathbf{x})$ in $\Omega$). $\epsilon$ is a user defined parameter that controls the tightness of the computed domain, and assumed to be a small ($\epsilon \ll 1$) positive number. This is useful when $f(\mathbf{x})$ is in some sense compact, *i.e.* a distribution with rapidly decaying tails (*e.g.* gaussian or laplace distributions) that are not important in subsequent computation.
 
@@ -22,7 +22,7 @@ pip install -i https://test.pypi.org/simple/ aabb-zacharysparrow
 ```
 To test your installation, run tests/test.py (requires scipy).
 
-## Instructions for Use
+## How to Use
 Once the package has been installed, using it is as simple as
 ```
 import aabbcd as aabb
@@ -50,7 +50,7 @@ which bounds a marginal distribution using the tightness parameter epsilon.
 
 For more details, please see the given tests, which also serve as useful examples.
 
-## Reference
+## How to Cite
 If you use this package for your work, please cite the following reference:\
 **COMING SOON**
 
