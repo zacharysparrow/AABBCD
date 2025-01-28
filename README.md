@@ -25,18 +25,28 @@ To test your installation, run tests/test.py (requires scipy).
 ## Instructions for Use
 Once the package has been installed, using it is as simple as
 ```
-from aabb-zacharysparrow import draw_aabb
+import aabbcd as aabb
 
-draw_aabb(my_distribution, my_epsilon)
+aabb.draw_aabb(my_distribution, my_epsilon)
 ```
 <tt>`my_distribution`</tt> must be an $n$-D numpy array, with entries equal to the distribution times the grid volume element -- <tt>`my_distribution[i,j,...]`</tt> $= f(\mathbf{x_{i,j,...}})\Delta \mathbf{x_{i,j,...}}$.
 
 If <tt>`my_distribution`</tt> is *not* normalized, the program will proceed anyway using $(1- \epsilon)* \left| f(\mathbf{x}) \right|$ as the bound. This is equivalent to ensuring $(1 - \epsilon)$\% of $f(\mathbf{x})$ is within $\Omega$ as described above.
 
-The output of <tt>`draw_aabb()`</tt> is a dictionary containing the following items: <tt>`"bounds"`</tt>, <tt>`"norm"`</tt>, and <tt>`"distribution"`</tt>, which contain the indices of the input array corresponding to the axis-aligned bounding box bounds, the norm of the truncated distribution, and the truncated distribution itself, respectively. The truncated distribution is related to the input distribution *via* the bounds as
+The output of <tt>`draw_aabb()`</tt> is either a list containing the distribution bounds, or if the verbose option is used, a dictionary containing the following items: <tt>`"bounds"`</tt>, <tt>`"norm"`</tt>, and <tt>`"distribution"`</tt>, which contain the indices of the input array corresponding to the axis-aligned bounding box bounds, the norm of the truncated distribution, and the truncated distribution itself, respectively. The truncated distribution can be computed using the bounds as
 ```
-trancated_distribution = input_distribution[tuple(slice(b[0],b[1],1) for b in bounds)].
+trancated_distribution = aabb.trunc_dist[distribution, bounds].
 ```
+
+Other functions that might be useful are
+```
+aabb.marginalize(distribution, axis)
+```
+which marginalizes a distribution, and
+```
+aabb.marginal_bound(marginal_distribution, epsilon)
+```
+which bounds a marginal distribution using the tightness parameter epsilon.
 
 For more details, please see the given tests, which also serve as useful examples.
 

@@ -60,7 +60,8 @@ def marginalize(dist, axis):
 
 def marginal_bound(dist, eps):
     if not isinstance(dist, np.ndarray):
-        raise TypeError("dist must be a numpy array.")
+        if dist.ndim != 1:
+            raise TypeError("dist must be 1D a numpy array.")
     if not isinstance(eps, float):
         raise TypeError("eps must be a float.")
     if eps < 0.0 or eps > 1.0:

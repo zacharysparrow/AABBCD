@@ -36,6 +36,14 @@ bound_test = aabb.marginal_bound(test_dist, 0.0)
 assert(bound_test == [7, 16]), "Marginal bounding failed with eps=0.0"
 bound_test = aabb.marginal_bound(test_dist, 1.0)
 assert(bound_test == []), "Marginal bounding failed with eps=1.0"
+try:
+    test_dist = np.array([[1,1],[1,1]])
+    aabb.marginal_bound(test_dist, 0.1)
+    raise AssertionError("")    
+except AssertionError:
+    raise AssertionError("Failed check that marginal distribution is 1D")
+except:
+    pass
 
 test_dist = np.array([[1,2,3,4],[5,6,7,8]])
 trunc_test = aabb.trunc_dist(test_dist, [[0,1],[0,3]])
