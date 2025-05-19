@@ -112,3 +112,15 @@ def trunc_dist(dist, bounds):
     truncated_dist = dist[index]
     return truncated_dist
 
+
+def test_interaction(bound1, bound2): #Assuming bounds were computed using the same global grid
+    if not isinstance(bound1, list):
+        raise TypeError("Inputs must be lists.")
+    if len(bound1) != len(bound2):
+        raise ValueError("Provided bounds are different sizes")
+    for a,b in zip(bound1, bound2):
+        if a[1] > b[0] and a[0] < b[1]:
+            return True
+        if b[1] > a[0] and b[0] < a[1]:
+            return True
+    return False

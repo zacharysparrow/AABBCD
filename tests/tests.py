@@ -196,4 +196,24 @@ test_input = np.array([0.0,0.2,0.3,0.3,0.2,0.0])
 my_aabb = aabb.draw_aabb(test_input, epsilon)
 assert(my_aabb == [[1, 5]]), "Failed test 12"
 print("...ok")
+
+print("Test case 13")
+test_bound1 = [[0,10],[0,10],[0,10]]
+test_bound2 = [[15,25],[15,25],[9,20]]
+test_bound3 = [[15,25],[15,25],[15,25]]
+interaction_test = aabb.test_interaction(test_bound1, test_bound2)
+interaction_test2 = aabb.test_interaction(test_bound1, test_bound3)
+assert(interaction_test == True), "Failed test 13"
+assert(interaction_test2 == False), "Failed test 13"
+print("...ok")
+
+print("Test case 14")
+test_bound1 = [[0,10]]
+test_bound2 = [[15,25]]
+test_bound3 = [[5,6]]
+interaction_test = aabb.test_interaction(test_bound1, test_bound2)
+interaction_test2 = aabb.test_interaction(test_bound1, test_bound3)
+assert(interaction_test == False), "Failed test 14"
+assert(interaction_test2 == True), "Failed test 14"
+print("...ok")
 print("All functional tests passed!")
