@@ -52,7 +52,7 @@ for i,bi in enumerate(aabbs):
             if int_bounds != None:
                 trunc_i = aabb.trunc_dist(np.array(volume_element*distributions[i].pdf(pos)), int_bounds)
                 trunc_j = aabb.trunc_dist(np.array(volume_element*distributions[j].pdf(pos)), int_bounds)
-                s_approx[i,j] = np.sum(np.sqrt(trunc_i * trunc_j))
+                s_approx[i,j] = np.sum(trunc_i * trunc_j)
                 s_approx[j,i] = s_approx[i,j]
 end_time = time.time()
 print("Approx. Timing:")
@@ -71,7 +71,7 @@ for i,bi in enumerate(aabbs):
         if i >= j:
             di = np.array(volume_element*distributions[i].pdf(pos))
             dj = np.array(volume_element*distributions[j].pdf(pos))
-            s_exact[i,j] = np.sum(np.sqrt(di * dj))
+            s_exact[i,j] = np.sum(di * dj)
             s_exact[j,i] = s_exact[i,j]
 end_time = time.time()
 print("Exact Timing")
