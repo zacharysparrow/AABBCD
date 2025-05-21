@@ -48,11 +48,11 @@ aabb.marginal_bound(marginal_distribution, epsilon)
 ```
 which bounds a marginal distribution using the tightness parameter epsilon.
 ```
-aabb.test_interaction(bounds1, bounds2)
+aabb.aabb_intersection(bounds1, bounds2)
 ```
-which returns True if bounds1 and bounds2 intersect. Here, bounds1 and bounds2 must be of the form returned by <tt>`draw_aabb()`</tt>, and both must be computed using the same full size grid (or adjusted after computation to take into account the relative position of the grids used to compute each bounds).
+which returns the intersection of two AABBs, or None if they do not intersect. Here, bounds1 and bounds2 must be of the form returned by <tt>`draw_aabb()`</tt>, and both must be computed using the same full size grid (or adjusted after computation to take into account the relative position of the grids used to compute each bounds).
 
-For more details, please see the given tests, which also serve as useful examples.
+For more details please see the given tests and example application.
 
 ## How to Cite
 If you use this package for your work, please cite the following reference:\

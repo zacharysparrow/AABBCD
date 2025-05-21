@@ -199,21 +199,21 @@ print("...ok")
 
 print("Test case 13")
 test_bound1 = [[0,10],[0,10],[0,10]]
-test_bound2 = [[15,25],[15,25],[9,20]]
-test_bound3 = [[15,25],[15,25],[15,25]]
-interaction_test = aabb.test_interaction(test_bound1, test_bound2)
-interaction_test2 = aabb.test_interaction(test_bound1, test_bound3)
-assert(interaction_test == True), "Failed test 13"
-assert(interaction_test2 == False), "Failed test 13"
+test_bound2 = [[5,25],[5,25],[9,20]]
+test_bound3 = [[5,25],[5,25],[15,25]]
+interaction_test = aabb.aabb_intersection(test_bound1, test_bound2)
+interaction_test2 = aabb.aabb_intersection(test_bound1, test_bound3)
+assert(interaction_test == [[5, 10], [5, 10], [9, 10]]), "Failed test 13"
+assert(interaction_test2 == None), "Failed test 13"
 print("...ok")
 
 print("Test case 14")
 test_bound1 = [[0,10]]
 test_bound2 = [[15,25]]
 test_bound3 = [[5,6]]
-interaction_test = aabb.test_interaction(test_bound1, test_bound2)
-interaction_test2 = aabb.test_interaction(test_bound1, test_bound3)
-assert(interaction_test == False), "Failed test 14"
-assert(interaction_test2 == True), "Failed test 14"
+interaction_test = aabb.aabb_intersection(test_bound1, test_bound2)
+interaction_test2 = aabb.aabb_intersection(test_bound1, test_bound3)
+assert(interaction_test == None), "Failed test 14"
+assert(interaction_test2 == [[5, 6]]), "Failed test 14"
 print("...ok")
 print("All functional tests passed!")

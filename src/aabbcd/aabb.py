@@ -10,7 +10,7 @@ def draw_aabb(dist: np.ndarray, eps: float, verbose=False):
         raise ZeroDivisionError("Norm of input distribution is zero.")
     if np.any(dist < 0):
         raise ValueError("The input distribution contains negative numbers.")
-    if dist_norm != 1.0:
+    if not (dist_norm > 1.0 - (eps / 10)):
         warnings.warn("Warning! The input distribution is not well normalized. Proceeding anyway.")
         dist = dist/dist_norm
     if not isinstance(eps, float):
@@ -113,14 +113,33 @@ def trunc_dist(dist, bounds):
     return truncated_dist
 
 
-def test_interaction(bound1, bound2): #Assuming bounds were computed using the same global grid
+def aabb_intersection(bound1, bound2): #Assuming bounds were computed using the same global grid
     if not isinstance(bound1, list):
+        raise TypeError("Inputs must be lists.")
+    if not isinstance(bound2, list):
         raise TypeError("Inputs must be lists.")
     if len(bound1) != len(bound2):
         raise ValueError("Provided bounds are different sizes")
     for a,b in zip(bound1, bound2):
-        if a[1] > b[0] and a[0] < b[1]:
-            return True
-        if b[1] > a[0] and b[0] < a[1]:
-            return True
-    return False
+        if len(a) != 2:
+            raise ValueError("Bound incorrect dimension in bound 1 (should be 2)")
+        if len(b) != 2:
+            raise ValueError("Bound incorrect dimension in bound 2 (should be 2)")
+
+    new_bound = [[None, None] for i in range(len(bound1))]
+
+    for i,(a,b) in enumerate(zip(bound1, bound2)):
+        for val in a:
+            if not isinstance(val, int):
+                raise TypeError("All bounds must be integers")
+        for val in b:
+            if not isinstance(val, int):
+                raise TypeError("All bounds must be integers")
+
+        new_bound[i][0] = max(a[0], b[0])
+        new_bound[i][1] = min(a[1], b[1])
+
+        if new_bound[i][0] > new_bound[i][1]:
+            return None
+
+    return new_bound
