@@ -24,6 +24,12 @@ for x in range(distribution_grid_size):
         distributions.append(dist)
 
 n_distributions = len(distributions)
+plt.scatter([x[0] for x in coords], [y[1] for y in coords], c='black')
+plt.scatter([x[0] for x in coords], [y[1] for y in coords], s=1000, facecolors='none', edgecolors='gray')
+plt.title('Scattered Normal Distributions')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
 
 # Generate grid
 quadrature_spacing = 0.1
@@ -76,6 +82,9 @@ for i,bi in enumerate(aabbs):
 end_time = time.time()
 print("Exact Timing")
 print(end_time - start_time)
+
+print("Mean error:")
+print(np.linalg.norm(s_exact - s_approx)/(s_approx.size))
 
 plt.imshow(s_exact - s_approx, cmap='viridis')
 plt.colorbar()
